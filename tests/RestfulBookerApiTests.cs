@@ -1,18 +1,17 @@
 using System.Net;
 using FluentAssertions;
+using Restful_Booker.requests;
 using RestSharp;
 
 namespace Restful_Booker.tests
 {
     public class RestfulBookerApiTests
     {
+        readonly RestfulBookerApiRequest request = new();
         [Test]
         public void GetAllBookings()
         {
-            var baseUrl = "https://restful-booker.herokuapp.com/booking";
-            RestClient client = new(baseUrl);
-            RestRequest restRequest = new(baseUrl, Method.Get);
-            RestResponse restResponse = client.Execute<RestRequest>(restRequest);
+            RestResponse restResponse = request.GetAllBookings();
             restResponse.Should().NotBeNull();
             restResponse.StatusCode.Should().Be(HttpStatusCode.OK);
         }
